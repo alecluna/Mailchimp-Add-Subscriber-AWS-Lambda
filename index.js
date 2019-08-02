@@ -3,18 +3,13 @@ const axios = require("axios");
 exports.handler = async event => {
   if (event.queryStringParameters && event.queryStringParameters.email) {
     let emailAddress = event.queryStringParameters.email;
-    let name;
-    let phoneNumber;
 
-    if (event.queryStringParameters.name) {
-      name = event.queryStringParameters.name;
-    } else name = "";
+    let name = event.queryStringParameters.name || "";
 
-    if (event.queryStringParameters.phoneNumber) {
-      phoneNumber = event.queryStringParameters.phoneNumber;
-    } else phoneNumber = "";
+    let phoneNumber = event.queryStringParameters.phoneNumber || "";
 
-    let url = `https://us20.api.mailchimp.com/3.0/lists/${YOUR.AUDIENCE.LIST}`;
+    let url = `https://us20.api.mailchimp.com/3.0/lists/${YOUR_AUDIENCE_LIST}`;
+
     let data = {
       members: [
         {
@@ -31,7 +26,7 @@ exports.handler = async event => {
     let resPost = axios
       .post(url, JSON.stringify(data), {
         headers: {
-          Authorization: `auth ${API.KEY.HERE}-us20`, //us20 is an example datacenter from mailchimp
+          Authorization: `auth ${API_KEY_HERE}-us20`, //us20 is an example datacenter from mailchimp
           "Content-Type": "application/json"
         }
       })
